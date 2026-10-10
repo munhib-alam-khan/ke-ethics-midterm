@@ -39,3 +39,23 @@ Advances 1–8 (opening, controversy, investigation) take about 2–2.5 minutes.
 ## Known limitations
 - The art is painted illustration, not photography. Photographic plates could be swapped in later by replacing files in `assets/img/` with the same names and sizes.
 - The presenter window (**P**) needs the deck served over `http://` (see README). On `file://` use the on-screen notes (**N**).
+
+---
+
+# v2 motion revision: build notes
+
+**Where it lives:** `v2/index.html` (self-contained: `v2/css`, `v2/js`, `v2/assets`; fonts shared from `assets/fonts`). The published v1 deck at the repository root is unchanged. It is also preserved on the branch `claude/k-electric-cinematic-presentation-pq9921-v1`. A `v1-static` tag exists locally, but the git proxy refused the tag push.
+
+**What changed:**
+- **Engine:** v1 used CSS class reveals over flat plates. v2 adds `v2/js/engine.js`, a 2.5D pinhole-camera engine. Each world is a stack of independent raster/HTML layers at real depths. Transitions are sampled into per-layer WAAPI keyframes (transform + opacity only), with each layer's own delay, easing, Bézier path and spin. Camera waypoints and log-space dollies make the through-the-window moves feel even. Interruptions read the exact current pose, so rapid clicks and reversals never jump or stack. Going back replays the forward choreography mirrored.
+- **Assets:** 126 separately painted layers in nine worlds (household and neighbourhood, editorial collage and research board, Imad's household, Gulshan rooftops, operations miniature, two-worlds seam, correspondence desk, evaluation book, fieldwork collage, regulatory desk, recommendation miniature, dusk city), plus HTML text layers inside the worlds where text must travel with an object (folder labels, index cards, outage update, complaint, commitment).
+- **Script mapping:** unchanged, verified programmatically against v1. The only structural change: **scene 13 (virtue ethics) is now two reveals**, split at "And this standard also applies to the committee." v2 has 37 reveal states (36 advances) against v1's 36 (35 advances).
+
+**Factual guardrails carried over (checked programmatically):** company-reported 2025 figures with date and "predate the hearing"; the participant-reported ~12-hour estimate with its qualification attached; PKR 50m labelled prior history; the NEPRA paraphrase label; "The CEO was not expelled" and "reason not established"; employee "personal views" labels; exact quotations with dates; "PROPOSED — not implemented" and "not legal deadlines / not permission to delay binding compliance" on every recommendation; recommendation visuals labelled illustrative or proposed process; the recommendation houses never shown as an implemented result.
+
+**Testing actually performed:**
+- `node tools/v2/test_controls.mjs`: 36 automated checks, all passing (keys, rapid clicking both ways, back-into-previous-scene at its last reveal, end hold, notes, overview, evidence, blackout, help, low motion, fullscreen request, hidden HUD, hash restore, no audio or video, no network, no errors).
+- Every reveal state screenshotted after its choreography at 1920×1080 and reviewed. Spot checks at 1366×768 in low-motion mode and at 1024×768 (4:3 letterbox).
+- **Motion reviewed from browser recordings, not stills.** Four recordings in `v2/previews/*.webm` (Playwright, 1280×720, 25 fps), inspected as dense frame sheets: household → blackout → neighbourhood; controversy → interviews; utilitarianism → deontology; recommendations 1–4. Problems found this way were fixed: the press board fading instead of arriving, blank ground during miniature pans, recommendation cards too small, the operations desk hidden behind chips, and collisions between labels and titles.
+- **Performance:** in headless Chromium with software rendering (no GPU), the heaviest transition (the household pull-back) averaged 32.8 ms per frame (about 30 fps), with a 95th percentile of 50 ms. A laptop with GPU compositing should do better, but I could not test that here. **Rehearse on the classroom machine.** If it stutters, press **M** (low motion: no camera travel, positions cut, short crossfades).
+- Not testable here: real projector colour and brightness, and the classroom laptop's GPU. The dark scenes (1, 2, 6, 12, 16, 22) keep text on scrims and moonlit mid-tones, but check them on the projector.

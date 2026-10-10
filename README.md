@@ -4,7 +4,12 @@
 KSBL · Business Ethics & Law midterm · Dr Faryal Razzaq
 Munhib Alam Khan · Rabie Sami · Abdullah Khan · Karan Kumar
 
-A presenter-controlled, silent documentary presentation (22 scenes, 35 advances, about 10–12 minutes). It is an independent academic analysis, not KE material.
+A presenter-controlled, silent documentary presentation (22 scenes, about 10–12 minutes). It is an independent academic analysis, not KE material.
+
+> **Two versions are in this repository.**
+> - **`v2/index.html` — motion revision (for review).** Layered 2.5D worlds, a camera that travels through them, and object choreography; 36 advances. See `docs/MOTION_NOTES.md`, `docs/SCENE_MANIFEST_V2.md`, `docs/SPEAKER_NOTES_V2.md` and the four preview recordings in `v2/previews/`.
+> - **`index.html` — the first published version**, left unchanged until the revision is reviewed (also preserved on branch `claude/k-electric-cinematic-presentation-pq9921-v1`).
+> Controls, evidence section and script are the same in both. Launch v2 the same way: open `v2/index.html`, or serve the repository folder and visit `http://localhost:8000/v2/`.
 
 ![Opening scene](previews/01_household.jpg)
 
@@ -63,11 +68,17 @@ tools/                  art pipeline and QA scripts (not needed to present)
 
 ## Editing
 
-Scene text, notes and cues live in `js/manifest.js`. After editing, regenerate the docs with `node tools/export_docs.mjs`. Images are rebuilt from source with `tools/build_art.sh` (Python 3 with numpy and Pillow, plus Node with Playwright).
+**v2:** worlds (layers and depths) live in `v2/js/worlds.js` and `worlds_b.js`; scene choreography (camera, per-layer timing and paths, UI text and anchors) lives in `v2/js/scenes_a.js` … `scenes_d.js`; script, notes and sources live in `v2/js/content.js`. Regenerate v2 docs with `node tools/v2/export_docs.mjs`.
+
+**v1:** scene text, notes and cues live in `js/manifest.js`. After editing, regenerate the docs with `node tools/export_docs.mjs`. Images are rebuilt from source with `tools/build_art.sh` (Python 3 with numpy and Pillow, plus Node with Playwright).
 
 QA:
 ```bash
-node tools/test_controls.mjs                   # 36 functional checks
+node tools/v2/test_controls.mjs                # v2: 36 functional checks + frame pacing
+node tools/v2/record.mjs out.webm "#1.1" "W2500,R,W4800,R,W7200"   # record a motion preview
+node tools/v2/stills.mjs /tmp/v2 all           # screenshot every v2 reveal after it settles
+python3 tools/v2/build.py home press imad gulshan ops rest   # rebuild all v2 layers
+node tools/test_controls.mjs                   # v1: 36 functional checks
 node tools/shoot.mjs /tmp/shots 1920 1080      # screenshot every reveal
 node tools/shoot.mjs /tmp/shots 1366 768 --lowmo
 ```
