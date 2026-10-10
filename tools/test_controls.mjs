@@ -10,7 +10,7 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 const errs = [];
 page.on('pageerror', e => errs.push(e.message));
 page.on('requestfailed', r => errs.push('failed ' + r.url()));
-await page.goto(pathToFileURL(path.join(root, 'index.html')).href);
+await page.goto(pathToFileURL(path.join(root, 'v1.html')).href);
 await page.waitForFunction(() => document.body.classList.contains('ready'));
 const results = [];
 const ok = (name, cond) => { results.push([cond ? 'PASS' : 'FAIL', name]); };
@@ -85,7 +85,7 @@ ok('no audio or video elements', await page.evaluate(() => document.querySelecto
 const remote = await page.evaluate(() => performance.getEntriesByType('resource').map(r => r.name).filter(u => !u.startsWith('file:')));
 ok('no network requests (offline)', remote.length === 0);
 // hash restore
-await page.goto('about:blank'); await page.goto(pathToFileURL(path.join(root, 'index.html')).href + '#12.2');
+await page.goto('about:blank'); await page.goto(pathToFileURL(path.join(root, 'v1.html')).href + '#12.2');
 await page.waitForFunction(() => document.body.classList.contains('ready'));
 s = await sceneState(); ok('URL hash #12.2 restores scene 12 reveal 2', s.si === 11 && s.step === 1);
 ok('no page errors', errs.length === 0);

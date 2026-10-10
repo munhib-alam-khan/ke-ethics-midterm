@@ -8,7 +8,7 @@ A presenter-controlled, silent documentary presentation (22 scenes, about 10–1
 
 > **Two versions are in this repository.**
 > - **`v2/index.html` — motion revision (for review).** Layered 2.5D worlds, a camera that travels through them, and object choreography; 36 advances. See `docs/MOTION_NOTES.md`, `docs/SCENE_MANIFEST_V2.md`, `docs/SPEAKER_NOTES_V2.md` and the four preview recordings in `v2/previews/`.
-> - **`index.html` — the first published version**, left unchanged until the revision is reviewed (also preserved on branch `claude/k-electric-cinematic-presentation-pq9921-v1`).
+> - **`v1.html` — the first version** (also preserved on branch `claude/k-electric-cinematic-presentation-pq9921-v1`). The root `index.html` now redirects to v2, so GitHub Pages opens the motion revision by default.
 > Controls, evidence section and script are the same in both. Launch v2 the same way: open `v2/index.html`, or serve the repository folder and visit `http://localhost:8000/v2/`.
 
 ![Opening scene](previews/01_household.jpg)
@@ -17,7 +17,7 @@ A presenter-controlled, silent documentary presentation (22 scenes, about 10–1
 
 Everything is local: fonts, images and code. No internet is needed after cloning.
 
-**Option A: double-click.** Open `index.html` in Chrome or Edge. Everything except the separate presenter window works from `file://`.
+**Option A: double-click.** Open `index.html` (opens v2) or `v1.html` in Chrome or Edge. Everything except the separate presenter window works from `file://`.
 
 **Option B: local server (recommended for the presenter window).**
 ```bash

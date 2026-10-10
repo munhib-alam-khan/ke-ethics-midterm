@@ -12,7 +12,7 @@ const lowmo = args.includes('--lowmo');
 const only = (args.find(a => a.startsWith('--only=')) || '').slice(7).split(',').filter(Boolean).map(Number);
 fs.mkdirSync(out, { recursive: true });
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const url = pathToFileURL(path.join(root, 'index.html')).href + (lowmo ? '?lowmo' : '');
+const url = pathToFileURL(path.join(root, 'v1.html')).href + (lowmo ? '?lowmo' : '');
 const browser = await pw.chromium.launch();
 const page = await browser.newPage({ viewport: { width: W, height: H } });
 const errors = [];
