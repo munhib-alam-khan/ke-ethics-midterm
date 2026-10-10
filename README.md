@@ -6,10 +6,12 @@ Munhib Alam Khan · Rabie Sami · Abdullah Khan · Karan Kumar
 
 A presenter-controlled, silent documentary presentation (22 scenes, about 10–12 minutes). It is an independent academic analysis, not KE material.
 
-> **Two versions are in this repository.**
-> - **`v2/index.html` — motion revision (for review).** Layered 2.5D worlds, a camera that travels through them, and object choreography; 36 advances. See `docs/MOTION_NOTES.md`, `docs/SCENE_MANIFEST_V2.md`, `docs/SPEAKER_NOTES_V2.md` and the four preview recordings in `v2/previews/`.
-> - **`v1.html` — the first version** (also preserved on branch `claude/k-electric-cinematic-presentation-pq9921-v1`). The root `index.html` now redirects to v2, so GitHub Pages opens the motion revision by default.
-> Controls, evidence section and script are the same in both. Launch v2 the same way: open `v2/index.html`, or serve the repository folder and visit `http://localhost:8000/v2/`.
+> **Three versions are in this repository. The root `index.html` opens v3.**
+> - **`v3/index.html` — live 3D (current).** One real-time WebGL world (three.js) with real lights and a moving camera. It starts inside the room at the paid bill and flies out through the window onto the dark feeder; the committee room, evidence desk, Imad's flat, Gulshan rooftops, a network model and a studio follow. 37 advances, with the same script, qualifications, evidence section and keys. See `docs/V3_NOTES.md`, `docs/SCENE_MANIFEST_V3.md`, `docs/SPEAKER_NOTES_V3.md`, and the stills and recordings in `previews/v3/`. It needs WebGL (any current Chrome or Edge with hardware acceleration on).
+> - **`v2/index.html`** — the layered 2.5D motion revision (36 advances).
+> - **`v1.html`** — the first version (also on branch `claude/k-electric-cinematic-presentation-pq9921-v1`).
+
+![v3 opening](previews/v3/s1_1.jpg)
 
 ![Opening scene](previews/01_household.jpg)
 
@@ -17,7 +19,7 @@ A presenter-controlled, silent documentary presentation (22 scenes, about 10–1
 
 Everything is local: fonts, images and code. No internet is needed after cloning.
 
-**Option A: double-click.** Open `index.html` (opens v2) or `v1.html` in Chrome or Edge. Everything except the separate presenter window works from `file://`.
+**Option A: double-click.** Open `index.html` (opens v3), `v2/index.html` or `v1.html` in Chrome or Edge. Everything except the separate presenter window works from `file://`.
 
 **Option B: local server (recommended for the presenter window).**
 ```bash
@@ -67,6 +69,9 @@ tools/                  art pipeline and QA scripts (not needed to present)
 ```
 
 ## Editing
+
+**v3:** sets live in `v3/src/world/street.js` and `v3/src/sets/*.js`; camera, light and object choreography plus on-screen text live in `v3/src/deck/scenes.js`; script, notes and sources live in `v3/js/content.js`. Rebuild with `cd v3 && npm install && npm run build` (writes `v3/dist/deck.js`, committed so no build is needed to present). Regenerate v3 docs with `node tools/v3/export_docs.mjs`. QA: `node tools/v3/test_controls.mjs`, `node tools/v3/stills.mjs /tmp/v3 all`, `node tools/v3/record.mjs out.mp4 1.1 4`. If a laptop stutters, press **M** (low motion) or open `v3/index.html?q=0`.
+
 
 **v2:** worlds (layers and depths) live in `v2/js/worlds.js` and `worlds_b.js`; scene choreography (camera, per-layer timing and paths, UI text and anchors) lives in `v2/js/scenes_a.js` … `scenes_d.js`; script, notes and sources live in `v2/js/content.js`. Regenerate v2 docs with `node tools/v2/export_docs.mjs`.
 

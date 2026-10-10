@@ -1,0 +1,17 @@
+{
+  "name": "ke-ethics-v3",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Paid. On time. — live 3D presentation (three.js + GSAP), bundled to dist/deck.js",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --format=iife --minify --outfile=dist/deck.js",
+    "dev": "esbuild src/main.js --bundle --format=iife --outfile=dist/deck.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0"
+  },
+  "dependencies": {
+    "gsap": "3.12.5",
+    "three": "0.170.0"
+  }
+}
