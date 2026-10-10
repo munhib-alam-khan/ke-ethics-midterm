@@ -1,0 +1,78 @@
+# Paid. On time.
+### K-Electric, load-shedding and corporate accountability: a cinematic presentation
+
+KSBL · Business Ethics & Law midterm · Dr Faryal Razzaq
+Munhib Alam Khan · Rabie Sami · Abdullah Khan · Karan Kumar
+
+A presenter-controlled, silent documentary presentation (22 scenes, 35 advances, about 10–12 minutes). It is an independent academic analysis, not KE material.
+
+![Opening scene](previews/01_household.jpg)
+
+## Launch
+
+Everything is local: fonts, images and code. No internet is needed after cloning.
+
+**Option A: double-click.** Open `index.html` in Chrome or Edge. Everything except the separate presenter window works from `file://`.
+
+**Option B: local server (recommended for the presenter window).**
+```bash
+cd ke-ethics-midterm
+python3 -m http.server 8000      # or: npx serve .
+# then open http://localhost:8000
+```
+
+Then press **F** for fullscreen. Use a current Chrome or Edge (Firefox works too). The stage is 16:9, scales to any screen and letterboxes on 4:3 projectors.
+
+## Controls
+
+| Key | Action |
+|---|---|
+| → · Space · Page Down · Enter | Next reveal / scene (clickers work) |
+| ← · Page Up | Previous (rebuilds the exact previous state) |
+| Home / End | Opening / final scene |
+| F | Toggle fullscreen |
+| B (or .) | Temporary blackout (any advance key also lifts it) |
+| N | Speaker notes: script for this reveal, cues, qualifications, sources |
+| O | Scene overview (arrows + Enter to jump) |
+| E | References & evidence (clickable full references, interview list, recordings link) |
+| M | Low-motion mode (also honours the OS "reduce motion" setting; remembered) |
+| P | Presenter window with notes, kept in sync (needs Option B) |
+| ? | Key help |
+| Esc | Close the open overlay, otherwise exit fullscreen |
+
+Controls stay hidden while presenting. Move the mouse to reveal a small control bar and progress line; they fade after about 2.5 s. Scenes never auto-advance. Transitions finish and then hold. Holding a key down does not race through slides. The final scene holds in silence and further advances do nothing. Press **E** during questions. The address bar keeps your position (e.g. `index.html#12.2`), so a refresh returns to the same reveal.
+
+## Files
+
+```
+index.html              entry point
+css/style.css           stage, typography, reveal system, overlays
+js/manifest.js          SCENE MANIFEST: markup, script passage per reveal, cues, notes, sources, assets
+js/references.js        bibliography (exact, from the report), interviews, recordings link
+js/app.js               state model (scene + reveal), navigation, overlays, preloading
+js/layout.js            positions exported by the art pipeline
+assets/img/             painted plates and cutouts (WebP)
+assets/fonts/           Fraunces, Anton, Source Sans 3, IBM Plex Mono + OFL licences
+docs/SCENE_MANIFEST.md  scene-by-scene table (generated)
+docs/SPEAKER_NOTES.md   full script mapped to every advance (generated)
+docs/ASSET_REGISTER.md  image/font origins, licences, sources
+docs/BUILD_NOTES.md     script ↔ report discrepancies and how they were resolved; testing record
+previews/               review screenshots
+tools/                  art pipeline and QA scripts (not needed to present)
+```
+
+## Editing
+
+Scene text, notes and cues live in `js/manifest.js`. After editing, regenerate the docs with `node tools/export_docs.mjs`. Images are rebuilt from source with `tools/build_art.sh` (Python 3 with numpy and Pillow, plus Node with Playwright).
+
+QA:
+```bash
+node tools/test_controls.mjs                   # 36 functional checks
+node tools/shoot.mjs /tmp/shots 1920 1080      # screenshot every reveal
+node tools/shoot.mjs /tmp/shots 1366 768 --lowmo
+```
+
+## Before presenting
+- Rehearse once on the classroom laptop and projector. If motion stutters, press **M**.
+- The interview recordings link (evidence section) is for the instructor. Do not open it during the talk.
+- Check `docs/BUILD_NOTES.md` item 3: the report's "K-Electric, 2026s" citation needs correcting.
