@@ -84,7 +84,7 @@ export function createDeck({ R, rig, sets, anchors, scenes, uiHost, low, onState
   const FROM = {
     up: { y: 34, autoAlpha: 0 }, down: { y: -34, autoAlpha: 0 }, left: { x: -50, autoAlpha: 0 }, right: { x: 50, autoAlpha: 0 },
     fade: { autoAlpha: 0 }, pop: { scale: 0.86, autoAlpha: 0 }, stamp: { scale: 1.7, rotation: -14, autoAlpha: 0 },
-    line: { scaleX: 0, autoAlpha: 1 }, mask: { clipPath: 'inset(0 100% 0 0)', autoAlpha: 1 }, blur: { autoAlpha: 0, filter: 'blur(16px)', scale: 1.04 }
+    line: { scaleX: 0, autoAlpha: 1 }, mask: { clipPath: 'inset(0 100% 0 0)', autoAlpha: 1 }, blur: { autoAlpha: 0, scale: 1.05 }
   };
   const TO_EASE = { up: 'power3.out', down: 'power3.out', left: 'power3.out', right: 'power3.out', fade: 'sine.out', pop: 'back.out(1.6)', stamp: 'power4.in', line: 'power3.inOut', mask: 'power3.inOut', blur: 'power2.out' };
   function splitWords(el) {
@@ -107,16 +107,16 @@ export function createDeck({ R, rig, sets, anchors, scenes, uiHost, low, onState
   function revealIn(el, delay, instant) {
     const a = el.dataset.a || 'up';
     gsap.killTweensOf(el); el._words && gsap.killTweensOf(el._words);
-    if (instant) { gsap.set(el, { autoAlpha: 1, x: 0, y: 0, scale: 1, scaleX: 1, rotation: 0, clipPath: 'inset(0 0% 0 0)', filter: 'none' }); if (el._words) gsap.set(el._words, { autoAlpha: 1, y: 0, filter: 'none' }); return; }
+    if (instant) { gsap.set(el, { autoAlpha: 1, x: 0, y: 0, scale: 1, scaleX: 1, rotation: +(el.dataset.rot || 0), clipPath: 'none' }); if (el._words) gsap.set(el._words, { autoAlpha: 1, y: 0 }); return; }
     if (a === 'words') {
       splitWords(el);
       el._words = el._words || el.querySelectorAll('.w');
       gsap.set(el, { autoAlpha: 1, x: 0, y: 0 });
-      gsap.fromTo(el._words, { autoAlpha: 0, y: 18, filter: 'blur(6px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out', stagger: +(el.dataset.st || 0.045), delay });
+      gsap.fromTo(el._words, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: +(el.dataset.st || 0.045), delay });
       return;
     }
     const from = Object.assign({}, FROM[a] || FROM.up);
-    const to = { autoAlpha: 1, x: 0, y: 0, scale: 1, scaleX: 1, rotation: +(el.dataset.rot || 0), clipPath: 'inset(0 0% 0 0)', filter: 'blur(0px)', duration: +(el.dataset.t || (a === 'stamp' ? 0.32 : 0.9)), ease: TO_EASE[a] || 'power3.out', delay };
+    const to = { autoAlpha: 1, x: 0, y: 0, scale: 1, scaleX: 1, rotation: +(el.dataset.rot || 0), clipPath: 'none', duration: +(el.dataset.t || (a === 'stamp' ? 0.32 : 0.9)), ease: TO_EASE[a] || 'power3.out', delay };
     if (a === 'stamp') to.onComplete = () => gsap.fromTo(el, { x: -3 }, { x: 0, duration: 0.25, ease: 'elastic.out(1,.3)' });
     gsap.fromTo(el, from, to);
   }

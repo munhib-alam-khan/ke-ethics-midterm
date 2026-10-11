@@ -268,3 +268,7 @@ svg.wires { position: absolute; inset: 0; width: 1920px; height: 1080px; pointer
 #nogl a { color: var(--amber); }
 
 body.presenter #gl { opacity: .35; }
+
+#rotate { display: none; position: fixed; inset: 0; z-index: 220; background: #050506; color: var(--cream); align-items: center; justify-content: center; text-align: center; font-family: var(--serif); font-size: 26px; padding: 30px; }
+#rotate small { font-family: var(--sans); font-size: 16px; color: #aaa; }
+@media (orientation: portrait) and (max-width: 900px) { #rotate { display: flex; } }

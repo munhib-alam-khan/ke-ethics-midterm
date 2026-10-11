@@ -51,7 +51,9 @@ async function boot() {
   // ------------------------------------------------ viewport: 16:9 letterbox, capped pixel ratio
   let lowmo = false;
   const low = () => lowmo;
-  let prCap = quality >= 1 ? 1.5 : 1;
+  const small = Math.min(screen.width, screen.height) < 820;
+  let prCap = quality >= 1 && !small ? 1.5 : 1;
+  if (small) R.bloom.setSize(480, 270);
   function fit() {
     const W = innerWidth, H = innerHeight;
     const w = Math.min(W, H * 16 / 9), h = w * 9 / 16;
@@ -61,7 +63,7 @@ async function boot() {
     R.resize(Math.round(w), Math.round(h), pr);
     document.documentElement.style.setProperty('--k', Math.min(W / 1920, H / 1080));
   }
-  addEventListener('resize', fit); fit();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 120); }); fit();
 
   // ------------------------------------------------ shader warm-up: compile every set's light configuration up front
   const uiHost = $('#stage');
@@ -75,16 +77,23 @@ async function boot() {
       Object.assign(rig, { px: c.p[0] + o[0], py: c.p[1] + o[1], pz: c.p[2] + o[2], tx: c.t[0] + o[0], ty: c.t[1] + o[1], tz: c.t[2] + o[2], fov: c.fov || 45 });
       rig.apply();
     }
+    // compile shaders and upload textures for EVERYTHING in the set, including objects that start hidden
+    const hidden = [];
+    sets[names[i]].root.traverse(o => { if (!o.visible && o !== sets[names[i]].root) { hidden.push(o); o.visible = true; } });
     try { R.renderer.compile(R.scene, R.camera); } catch (e) { /* older drivers */ }
+    sets[names[i]].root.traverse(o => { const m = o.material; if (!m) return; (Array.isArray(m) ? m : [m]).forEach(mm => ['map', 'emissiveMap'].forEach(k => { if (mm[k] && mm[k].isTexture) R.renderer.initTexture(mm[k]); })); });
     R.composer.render();
+    hidden.forEach(o => { o.visible = false; });
     await step(0.78 + 0.2 * (i + 1) / names.length);
   }
 
   // ------------------------------------------------ low motion
-  try { const v = localStorage.getItem('ke3-lowmo'); if (v !== null) lowmo = v === '1'; else lowmo = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { /* ignore */ }
+  // low motion only when asked for (M key or ?lowmo): many laptops report 'reduce motion' by default,
+  // which silently turned every camera move into a jump-cut
+  try { lowmo = localStorage.getItem('ke3-lowmo-v2') === '1'; } catch (e) { /* ignore */ }
   if (q.has('lowmo')) lowmo = true;
   document.body.classList.toggle('lowmo', lowmo);
-  function setLow(on) { lowmo = on; document.body.classList.toggle('lowmo', on); try { localStorage.setItem('ke3-lowmo', on ? '1' : '0'); } catch (e) { /* ignore */ } }
+  function setLow(on) { lowmo = on; document.body.classList.toggle('lowmo', on); try { localStorage.setItem('ke3-lowmo-v2', on ? '1' : '0'); } catch (e) { /* ignore */ } }
 
   let shell = null;
   shell = createShell({ deck, scenes: SCENES, low, setLow });
