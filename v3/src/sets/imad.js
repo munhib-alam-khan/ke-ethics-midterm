@@ -113,9 +113,9 @@ export function buildImad(scene, ANCH, TICK) {
   contact(1.8, 1.2, home, 0.4, 0.12, -0.9, 0.4);
 
   // chat bubbles (as he described the responses) — float up from the phone
-  const bubble = (txt, seed) => { const [c, g] = T.canvas(900, 220); g.fillStyle = '#efe6d2'; g.beginPath(); g.roundRect(10, 10, 880, 170, 60); g.fill(); g.beginPath(); g.moveTo(110, 175); g.lineTo(80, 215); g.lineTo(170, 175); g.fill(); g.fillStyle = '#2a2622'; g.font = 'italic 400 64px Fraunces'; g.fillText(txt, 60, 118); return c; };
+  const bubble = (txt) => { const [m, mg] = T.canvas(10, 10); mg.font = 'italic 400 64px Fraunces'; const tw = Math.ceil(mg.measureText(txt).width) + 130; const [c, g] = T.canvas(tw, 220); g.fillStyle = '#efe6d2'; g.beginPath(); g.roundRect(10, 10, tw - 20, 170, 60); g.fill(); g.beginPath(); g.moveTo(110, 175); g.lineTo(80, 215); g.lineTo(170, 175); g.fill(); g.fillStyle = '#2a2622'; g.font = 'italic 400 64px Fraunces'; g.fillText(txt, 60, 118); return c; };
   const b1 = card(bubble('Work is underway.'), 0.85, root); b1.material = new THREE.MeshBasicMaterial({ map: b1.material.map, transparent: true, depthWrite: false });
-  const b2 = card(bubble('Your complaint has been forwarded.'), 1.1, root); b2.material = new THREE.MeshBasicMaterial({ map: b2.material.map, transparent: true, depthWrite: false });
+  const b2 = card(bubble('Your complaint has been forwarded.'), 1.25, root); b2.material = new THREE.MeshBasicMaterial({ map: b2.material.map, transparent: true, depthWrite: false });
   b1.renderOrder = 5; b2.renderOrder = 5;
   ANCH.bub1 = b1; ANCH.bub2 = b2;
 

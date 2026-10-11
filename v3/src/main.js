@@ -118,8 +118,7 @@ async function boot() {
   }
   // capture mode: a virtual clock stepped by the recorder (smooth previews on slow renderers)
   let vt = 0;
-  if (capture) vt = gsap.ticker.time;
-  if (capture) { gsap.ticker.sleep(); window.__step = (dt = 1 / 30) => { vt += dt; gsap.updateRoot(vt); render(dt); }; }
+  if (capture) { const G = gsap.globalTimeline; G.pause(); window.__step = (dt = 1 / 30) => { G.totalTime(G.totalTime() + dt); render(dt); }; }
 
   const m = location.hash.match(/^#(\d+)(?:\.(\d+))?/);
   let idx = 0;

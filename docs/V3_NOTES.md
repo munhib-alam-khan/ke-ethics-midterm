@@ -106,5 +106,5 @@ No photograph, logo, real document, article text or likeness is used. The bill, 
 
 - `node tools/v3/test_controls.mjs`: keyboard, overlays, rapid advance and reverse, hash restore, offline check, no audio or video (results in the commit message and README).
 - `node tools/v3/stills.mjs <dir> all`: every advance after it settles (in `previews/v3/`).
-- `node tools/v3/record.mjs`: frame-exact preview videos using the virtual clock (`?capture`), in `previews/v3/*.mp4`.
+- `node tools/v3/record.mjs`: frame-exact preview videos driven by a virtual clock (`?capture`): `previews/v3/rec1_opening.mp4` (bill → lights out → fly-out → transformer → sky), `rec2_committee_desk.mp4` (sky → committee room → evidence desk), `rec3_ending.mp4` (recommendation 4 → limits → conclusion → return to the bill).
 - Headless Chromium can only test with software WebGL (SwiftShader), at about 1–3 fps. Real GPUs run the same scenes far faster, so these runs are a correctness check, not a performance measure. **Before presenting, rehearse once on the actual laptop and projector.** If it stutters, press M (low motion) or open with `?q=0` (no antialiasing, pixel ratio 1).

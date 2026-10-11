@@ -150,7 +150,7 @@ export function createDeck({ R, rig, sets, anchors, scenes, uiHost, low, onState
     sc.el.style.visibility = 'visible';
     sc.el.dataset.step = next.step;
     const kPrev = prevState && prevState.sc === sc ? prevState.step : -1;
-    const base = (next.st.uiDelay !== undefined ? next.st.uiDelay : (prevState && prevState.sc !== sc ? (sc.uiDelay || 0.9) : 0.15));
+    const base = (next.st.uiDelay !== undefined ? next.st.uiDelay : !prevState ? 1.2 : (prevState.sc !== sc ? (sc.uiDelay || 0.9) : 0.15));
     sc.items.forEach(el => {
       const was = kPrev >= 0 && vis(el, kPrev), now = vis(el, next.step);
       if (now && !was) revealIn(el, lowmo ? 0.05 : base + +(el.dataset.d || 0), instant);
@@ -247,7 +247,7 @@ export function createDeck({ R, rig, sets, anchors, scenes, uiHost, low, onState
       paramsTo(tp, dur, rev ? (st.ptBack || {}) : (st.pt || {}));
     }
 
-    applyUI(prev, next, opts.instant || !prev, lm);
+    applyUI(prev, next, prev ? opts.instant : false, lm);
     if (onState) onState(next, cur, prev);
   }
 

@@ -150,7 +150,7 @@ S({
     ${pin('imadLaptop', 'His brother’s remote work', { inn: 0, out: 1, d: 1.9, oy: -70 })}
     ${pin('imadRouter', 'Internet', { cls: 'off low', inn: 0, out: 1, d: 2.2, oy: 40 })}
     ${pin('imadIron', 'Ironing · household routines', { cls: 'ghost low', inn: 0, out: 1, d: 2.5, oy: 50 })}
-    <div class="abs" style="left:96px;top:120px;width:620px" data-in="1" data-a="up" data-d="0.6"><p class="kicker">Customer-service responses, as he described them</p></div>
+    <div class="abs" style="left:96px;top:712px;width:1000px" data-in="1" data-a="up" data-d="0.6"><p class="kicker">Customer-service responses, as he described them</p></div>
     <div class="abs" style="left:96px;top:800px;width:1000px" data-in="1" data-a="up" data-d="2.2"><p class="body shadow-t">They may acknowledge a complaint.</p><p class="body shadow-t amber">They do very little to help a household plan its evening.</p></div>
     ${illus('Illustrative flat and screen', 'right:28px;top:24px')}`,
   states: [

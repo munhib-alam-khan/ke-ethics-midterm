@@ -9,7 +9,7 @@ let pw; try { pw = require('playwright'); } catch { pw = require('/opt/node22/li
 const [out, start = '1.1', adv = '3', fps = '24', W = '960', H = '540', hold = '0'] = process.argv.slice(2);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const browser = await pw.chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-const page = await browser.newPage({ viewport: { width: +W, height: +H } });
+const page = await browser.newPage({ viewport: { width: +W, height: +H }, reducedMotion: 'no-preference' });
 page.on('pageerror', e => console.log('ERR', e.message));
 await page.goto(pathToFileURL(path.join(root, 'v3', 'index.html')).href + '?capture&test#' + start);
 await page.waitForFunction(() => window.__deck && window.__step && document.querySelector('#loader.done'), null, { timeout: 180000 });
