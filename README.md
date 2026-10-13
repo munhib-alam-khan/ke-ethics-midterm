@@ -11,6 +11,8 @@ A presenter-controlled, silent documentary presentation (22 scenes, about 10–1
 > - **`v2/index.html`** — the layered 2.5D motion revision (36 advances).
 > - **`v1.html`** — the first version (also on branch `claude/k-electric-cinematic-presentation-pq9921-v1`).
 
+> - **`submission/Paid_On_Time_KE_Ethics.pptx`** — PowerPoint copy for submission: 41 slides (cover, 37 advances, references). Each advance is a frame-exact clip of the live deck that plays automatically and holds on its final frame; script and notes are in the speaker notes; references and the recordings link are clickable. Rebuild: `node tools/v3/clips.mjs <dir> 0 36`, then `node tools/v3/build_pptx.mjs <dir> out.pptx` and `python3 tools/v3/pptx_autoplay.py out.pptx`.
+
 ![v3 opening](previews/v3/s1_1.jpg)
 
 ![Opening scene](previews/01_household.jpg)
