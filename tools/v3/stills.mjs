@@ -15,6 +15,7 @@ page.on('requestfailed', r => errs.push('failed ' + r.url()));
 await page.goto(pathToFileURL(path.join(root, 'v3', 'index.html')).href + '?test' + (process.env.Q ? '&' + process.env.Q : ''));
 await page.waitForFunction(() => window.__deck && document.querySelector('#loader.done'), null, { timeout: 180000 });
 const states = await page.evaluate(() => window.__deck.states.map(s => `${s.si + 1}.${s.step + 1}`));
+if (process.env.NOUI) await page.addStyleTag({ content: '#stage{display:none!important}' });
 const want = list === 'all' ? states : list.split(',');
 for (const id of want) {
   const idx = states.indexOf(id);

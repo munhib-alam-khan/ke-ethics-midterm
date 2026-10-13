@@ -131,6 +131,7 @@ async function boot() {
   }
   // capture mode: a virtual clock stepped by the recorder (smooth previews on slow renderers)
   let vt = 0;
+  if (capture) R.U.uGrain.value = 0.012;   // grain is noise to a video encoder: keep exported clips compact
   if (capture) { const G = gsap.globalTimeline; G.pause(); window.__step = (dt = 1 / 30) => { G.totalTime(G.totalTime() + dt); render(dt); }; }
 
   const m = location.hash.match(/^#(\d+)(?:\.(\d+))?/);
