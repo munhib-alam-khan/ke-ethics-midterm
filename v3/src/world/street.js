@@ -523,7 +523,8 @@ function buildRoom(our, W, D, y0, fonts) {
   box(0.4, 0.4, 0.12, std({ color: 0xe8a33d }), 0.1, 0.65, -0.5, sofa).rotation.y = 0.3;
   // moonlight spilling in through the window once the power is gone
   const moonIn = new THREE.SpotLight(0x8fa6dd, 0, 14, 0.5, 0.8, 1.2);
-  moonIn.position.set(-1.5, 3.5, 4.5); moonIn.target.position.set(0.3, 0.4, -2.0);
+  moonIn.position.set(-0.6, 2.8, -0.3); moonIn.target.position.set(0.4, 0.2, -3.0);
+  moonIn.angle = 0.85;
   room.add(moonIn, moonIn.target);
   // dust motes in the lamp light
   const dg = new THREE.BufferGeometry(); const dp = []; const dr = T.rng(42);
@@ -581,7 +582,7 @@ function buildRoom(our, W, D, y0, fonts) {
   reg('leds', 1, v => { leds.forEach((l, k) => l.material.color.setRGB(0.36 * v + 0.04, 1 * v + 0.04, 0.6 * v + 0.04)); ledGlow.material.opacity = 0.6 * v; });
   reg('cook', 1, v => { coilMat.emissiveIntensity = 2.2 * v; coilLight.intensity = 1.2 * v; steam.material.opacity = 0.18 * v; });
   reg('fan', 1, v => { fanSpeed = v; });
-  reg('moonIn', 0, v => { moonIn.intensity = 40 * v; });
+  reg('moonIn', 0, v => { moonIn.intensity = 5 * v; });
   reg('billLift', 0, v => {
     // the bill lifts off the table and turns toward the camera
     billG.position.set(lerp(-0.12, -0.05, v), lerp(0.795, 1.25, v), lerp(-1.2, -1.75, v));

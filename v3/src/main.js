@@ -32,9 +32,12 @@ async function boot() {
 
   const q = new URLSearchParams(location.search);
   if (q.has('test')) gsap.ticker.lagSmoothing(0);
-  let quality = q.has('q') ? +q.get('q') : 1;
+  let gpu = '';
+  try { const gl = document.createElement('canvas').getContext('webgl'); const ext = gl && gl.getExtension('WEBGL_debug_renderer_info'); gpu = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : ''; } catch (e) { /* ignore */ }
+  const lite = q.has('lite');   // opt-in lighter renderer; the automatic frame-rate fallback below still protects slow machines
+  let quality = q.has('q') ? +q.get('q') : lite ? 0 : 1;
   const R = createRenderer(canvas, quality);
-  R.renderer.shadowMap.enabled = true;
+  R.renderer.shadowMap.enabled = !lite;
   R.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   const rig = cameraRig(R.camera);
 
@@ -53,13 +56,14 @@ async function boot() {
   const low = () => lowmo;
   const small = Math.min(screen.width, screen.height) < 820;
   let prCap = quality >= 1 && !small ? 1.5 : 1;
+  const maxW = lite ? 1280 : 2560;          // render width cap in device pixels
   if (small) R.bloom.setSize(480, 270);
   function fit() {
     const W = innerWidth, H = innerHeight;
     const w = Math.min(W, H * 16 / 9), h = w * 9 / 16;
     canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
     canvas.style.left = ((W - w) / 2) + 'px'; canvas.style.top = ((H - h) / 2) + 'px';
-    const pr = Math.min(devicePixelRatio || 1, prCap, 2560 / w);
+    const pr = Math.min(devicePixelRatio || 1, prCap, maxW / w);
     R.resize(Math.round(w), Math.round(h), pr);
     document.documentElement.style.setProperty('--k', Math.min(W / 1920, H / 1080));
   }
@@ -114,13 +118,13 @@ async function boot() {
     const dt = Math.min(0.05, clock.getDelta());
     render(dt);
     // after warm-up, if frames are slow, lower the pixel ratio once or twice
-    if (t > 2 && checked < 2 && !q.has('q')) {
+    if (t > 2 && checked < 3 && !q.has('q')) {
       acc.push(dt);
       if (acc.length >= 90) {
         const avg = acc.reduce((a, b) => a + b, 0) / acc.length;
         acc = [];
-        if (avg > 1 / 38) { prCap = Math.max(0.6, (R.size[2] || 1) * 0.75); fit(); checked++; }
-        else checked = 2;
+        if (avg > 1 / 38) { prCap = Math.max(0.5, (R.size[2] || 1) * 0.75); R.bloom.strength *= 0.85; fit(); checked++; }
+        else checked = 3;
       }
     }
     requestAnimationFrame(frame);
@@ -137,6 +141,7 @@ async function boot() {
   await step(1, 'ready');
   loader.classList.add('done');
   document.body.classList.add('ready', 'cursor-hidden');
+  window.__gpu = { gpu, lite };
   window.__deck = { go: (i, o) => deck.go(i, o), states: deck.STATES, get cur() { return deck.cur; }, scenes: SCENES, params: PARAMS, rig, R, sets };
 }
 

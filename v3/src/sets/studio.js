@@ -69,7 +69,7 @@ export function buildStudio(scene, ANCH, TICK) {
   const hwin = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, emissive: 0xffc878, emissiveIntensity: 0 });
   plane(0.22, 0.2, hwin, 0, 0.32, 0.305, hs);
   const hwGlow = glow('255,200,120', 0.6, hs, 0, 0.32, 0.4, 0);
-  ['pl1', 'pl2', 'pl3'].forEach((n, k) => anchor(root, n, 24 + (k - 1) * 4.2, [3.5, 4.3, 3.5][k], 0, ANCH));
+  ['pl1', 'pl2', 'pl3'].forEach((n, k) => anchor(root, n, 24 + (k - 1) * 4.2, [3.25, 4.3, 3.25][k], 0, ANCH));
   // the gaps between plinths: little bridges that light in turn
   const bridges = [0, 1].map(k => box(2.6, 0.04, 0.12, new THREE.MeshBasicMaterial({ color: 0xf0ad45, transparent: true, opacity: 0 }), (k - 0.5) * 4.2, 1.0, 0, B));
 

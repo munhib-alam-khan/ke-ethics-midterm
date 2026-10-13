@@ -126,7 +126,8 @@ svg.wires { position: absolute; inset: 0; width: 1920px; height: 1080px; pointer
 .scene.active.s0 .draw.d0, .scene.active.s1 .draw.d1, .scene.active.s2 .draw.d2 { stroke-dashoffset: 0; }
 
 /* timeline rail for recommendations */
-.rail { position: absolute; left: 96px; right: 96px; bottom: 14px; height: 80px; }
+.rail { position: absolute; left: 96px; right: 96px; bottom: 26px; height: 80px; }
+.rail .m { white-space: nowrap; }
 .rail .line { position: absolute; left: 0; right: 0; top: 30px; height: 3px; background: rgba(239,230,210,.4); }
 .rail .m { position: absolute; top: 0; transform: translateX(-50%); text-align: center; font-family: var(--mono); font-size: 22px; color: rgba(239,230,210,.7); transition: color .6s ease; }
 .rail .m i { display: block; width: 22px; height: 22px; margin: 20px auto 10px; border-radius: 50%; background: #2a2a2a; border: 3px solid rgba(239,230,210,.7); transition: background .6s ease, border-color .6s; }

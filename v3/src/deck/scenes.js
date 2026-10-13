@@ -11,7 +11,7 @@ const pin = (anchor, label, { cls = '', inn = 0, out, d = 0, small = '', ox = 0,
 
 // shared poses
 const BILL_CLOSE = { p: [-0.32, 5.0, -2.45], t: [0.22, 4.3, -0.9], fov: 42, roll: -1 };
-const ROOM_BACK = { p: [0.85, 5.55, -3.9], t: [0.05, 4.95, -0.4], fov: 52, roll: 0.6 };
+const ROOM_BACK = { p: [0.2, 5.75, -6.4], t: [0.05, 4.9, -0.4], fov: 64, roll: 0.6 };
 const STREET_WIDE = { p: [-3, 21, 44], t: [-3, 6.4, 0], fov: 50 };
 const LIGHTS_OFF = { lamp: 0, tube: 0, leds: 0, cook: 0, fan: 0, moonIn: 1, power: 0 };
 
@@ -91,13 +91,13 @@ S({
   ui: `
     <div class="scrim soft-r" data-in="0" data-a="fade"></div>
     ${chap('02', 'The controversy')}
-    <div class="abs" style="left:1130px;top:120px;width:700px" data-in="0" data-a="up" data-d="0.2"><p class="kicker">Sindh Assembly committee · September 2026</p></div>
-    <div class="abs triad" style="left:1130px;top:190px;width:700px">
+    <div class="abs" style="left:1070px;top:120px;width:790px" data-in="0" data-a="up" data-d="0.2"><p class="kicker">Sindh Assembly committee · September 2026</p></div>
+    <div class="abs triad" style="left:1070px;top:190px;width:790px">
       <div class="row" data-in="0" data-a="left" data-d="0.8"><div class="who">The CEO</div><div class="what">Summoned. Absent.</div></div>
       <div class="row" data-in="0" data-a="left" data-d="1.6"><div class="who">Representatives, led by the distribution head</div><div class="what">Attended.</div></div>
       <div class="row" data-in="0" data-a="left" data-d="2.6"><div class="who">The committee</div><div class="what amber">Asked them to leave.</div></div>
     </div>
-    <p class="abs body sm" style="left:1130px;top:700px;width:700px" data-in="0" data-a="up" data-d="3.6"><b>The CEO was not expelled.</b> Why he did not attend is not established — by the reporting or by our interviews.</p>
+    <p class="abs body sm" style="left:1070px;top:700px;width:790px" data-in="0" data-a="up" data-d="3.6"><b>The CEO was not expelled.</b> Why he did not attend is not established — by the reporting or by our interviews.</p>
     ${pin('ceoChair', 'Empty chair', { cls: 'ghost', inn: 0, d: 1.2, small: 'the CEO did not attend' })}
     <p class="abs cite" style="left:96px;bottom:26px;width:1700px" data-in="0" data-a="fade" data-d="4.2">Our summary of published reporting — not a reproduction of the article: Khan, A. (2026, September 24). NEPRA and K-Electric representatives grilled over power outages. <i>Business Recorder</i>. Sept 24 is the publication date.</p>
     ${illus('Illustrative room · faceless figures — not images of the meeting')}`,
@@ -216,7 +216,7 @@ S({
     <div class="scrim soft-l" data-in="0" data-out="1" data-a="fade"></div>
     <div class="abs" style="left:96px;top:118px;width:820px" data-in="0" data-out="1" data-a="up" data-d="0.3"><p class="kicker teal">Employee 1 · Assistant Manager, Distribution · anonymised</p><p class="cite" style="margin-top:6px">Personal views — not an official KE statement</p></div>
     <div class="abs" style="left:96px;top:250px;width:760px" data-in="0" data-out="1" data-a="words" data-d="0.9" data-st="0.04"><h2 class="h2 shadow-t">Not every interruption is the same problem.</h2></div>
-    <p class="abs body sm shadow-t" style="left:96px;top:480px;width:720px" data-in="0" data-out="1" data-a="up" data-d="2.6">Theft and unpaid bills strain a network that needs continuing expenditure. <b>Electricity supplied without recovery is a real sustainability problem.</b></p>
+    <p class="abs body sm shadow-t" style="left:96px;top:480px;width:600px" data-in="0" data-out="1" data-a="up" data-d="2.6">Theft and unpaid bills strain a network that needs continuing expenditure. <b>Electricity supplied without recovery is a real sustainability problem.</b></p>
     <p class="abs body sm shadow-t" style="left:96px;top:700px;width:720px;color:var(--teal)" data-in="0" data-out="1" data-a="up" data-d="3.4">That explanation deserves consideration.</p>
     ${pin('opSched', 'Scheduled load-shedding', { cls: 'amber', inn: 0, out: 1, d: 1.2 })}
     ${pin('opFault', 'Technical fault', { cls: 'rust', inn: 0, out: 1, d: 1.7 })}
@@ -259,7 +259,7 @@ S({
     </div>
     <div class="abs panel" style="left:420px;right:420px;bottom:56px;text-align:center" data-in="1" data-a="up" data-d="3.6"><p class="body sm"><i>“This issue remains. This is what we know. This is what we will do next.”</i></p><p class="cite" style="margin-top:6px">— our paraphrase of accountable leadership, not an interview quotation</p></div>`,
   states: [
-    { cam: { p: [2.4, 1.75, 8.6], t: [0.6, 1.25, 4.9], fov: 38, roll: -1 }, from: { p: [4, 3, 12], t: [0, 1, 4], fov: 44 }, dur: 4.2 },
+    { cam: { p: [-1.6, 1.55, 1.6], t: [1.15, 1.05, 5.0], fov: 40, roll: 1 }, from: { p: [-3, 3.2, -2], t: [0.5, 1, 5], fov: 46 }, dur: 4.2 },
     { cam: { p: [0, 4.6, 12.5], t: [0, 1.6, 3.5], fov: 40 }, dur: 4.0, p: { chEmpty: 0.7, chKey: 0.2 } }
   ]
 });
@@ -363,8 +363,8 @@ S({
     <p class="abs h3 shadow-t" style="left:1060px;top:600px;width:780px" data-in="1" data-a="up" data-d="2.8">Expelling representatives may communicate anger. <span class="amber">Anger alone does not produce an explanation or restore electricity.</span></p>
     <p class="abs cite" style="right:40px;bottom:22px" data-in="0" data-a="fade" data-d="3.4">Theory: Hursthouse &amp; Pettigrove (2026), Virtue ethics, <i>Stanford Encyclopedia of Philosophy</i></p>`,
   states: [
-    { cam: { p: [0.75, 5.35, -2.35], t: [0.45, 4.15, -0.95], fov: 44, roll: 0 }, dur: 4.6, ease: 'power2.inOut',
-      via: [[-1, 9, 22], [0.4, 6.2, 7], [0.1, 5.35, 0.6], [0.2, 5.6, -1.6]], tvia: [[-1, 6, 4], [0, 5.2, -2], [0.2, 4.6, -3.6], [0.4, 4.2, -1.6]],
+    { cam: { p: [-0.4, 5.35, -2.4], t: [0.55, 4.15, -0.95], fov: 44, roll: 0 }, dur: 4.6, ease: 'power2.inOut',
+      via: [[-1, 9, 22], [0.4, 6.2, 7], [0.1, 5.35, 0.6], [-0.2, 5.6, -1.6]], tvia: [[-1, 6, 4], [0, 5.2, -2], [0.2, 4.6, -3.6], [0.5, 4.2, -1.6]],
       pt: { vDocs: { d: 0.55, t: 0.45, e: 'power2.out' }, wireGlow: { d: 0, t: 0.3 } } },
     { set: 'chamber', enter: 'whip', cam: { p: [-7.5, 4.2, 14.5], t: [-0.5, 1.4, 3.2], fov: 44 }, dur: 4.0,
       p: { chEmpty: 0.5, chKey: 1, chLeave: 1, chDoor: 0.7 } }
@@ -399,7 +399,7 @@ S({
     ${chap('06', 'Evaluation')}
     <div class="abs" style="left:96px;top:110px;width:1200px" data-in="0" data-a="up" data-d="0.3"><h2 class="h2 shadow-t">What KE says it has done</h2></div>
     <div class="abs panel" style="right:60px;top:110px;width:620px" data-in="0" data-a="up" data-d="2.8"><p class="body sm">Published January 2, 2026. These activities <b>predate the September 2026 hearing</b> — they are not a response to it.</p></div>
-    <p class="abs cite" style="left:60px;bottom:22px;width:1800px;background:rgba(10,10,12,.72);padding:6px 12px" data-in="0" data-a="fade" data-d="3.4">Source: K-Electric. (2026b, January 2). Year in review: K-Electric shows steady progress during 2025. Company-reported outputs; not independently verified; not the net return on the camps.</p>
+    <p class="abs cite" style="left:60px;bottom:22px;width:1500px;background:rgba(10,10,12,.72);padding:6px 12px" data-in="0" data-a="fade" data-d="3.4">Source: K-Electric. (2026b, January 2). Year in review: K-Electric shows steady progress during 2025. Company-reported outputs; not independently verified; not the net return on the camps.</p>
     ${illus('Illustrative paper', 'right:28px;bottom:70px', 0)}`,
   states: [
     { cam: { p: [-0.1, 3.05, 1.55], t: [-0.1, 0.9, 0.15], fov: 50 }, from: { p: [-1.5, 4.5, 3], t: [0, 0.9, 0], fov: 50 }, dur: 3.8,
@@ -422,7 +422,7 @@ S({
     <div class="abs panel" style="left:96px;bottom:44px;width:1720px" data-in="0" data-a="up" data-d="4.2"><p class="body sm"><b>98.2% system reliability, FY25</b> — company-reported, aggregate (K-Electric, 2026). It cannot be equated with uninterrupted supply at every home, and household outage hours cannot be derived from it.</p></div>
     ${illus('Illustration', 'left:28px;top:24px')}`,
   states: [
-    { cam: { p: [24, 3.0, 11.2], t: [24, 2.1, 0], fov: 50 }, from: { p: [17, 3.4, 11], t: [22, 1.8, 0], fov: 50 }, dur: 4.6,
+    { cam: { p: [24, 3.0, 11.2], t: [24, 2.35, 0], fov: 50 }, from: { p: [17, 3.4, 11], t: [22, 1.8, 0], fov: 50 }, dur: 4.6,
       pt: { stB: { d: 0.2, t: 0.8, e: 'none' } }, enterP: { stB: 0 } }
   ]
 });

@@ -116,7 +116,7 @@ export function buildOps(scene, ANCH, TICK) {
       m.color.copy(tmpC).multiplyScalar(lerp(1, pulse, seg(kinds, k * 0.25, k * 0.25 + 0.3)) * (1 - dim * 0.8));
     });
     spark.material.opacity = seg(kinds, 0.25, 0.55) * (0.5 + 0.5 * Math.abs(Math.sin(t * 23))) * (1 - dim);
-    wrench.visible = kinds > 0.55; wrench.rotation.z = t * 0.8; wrench.material.opacity = 1 - dim;
+    wrench.visible = kinds > 0.55 && dim < 0.4; wrench.rotation.z = t * 0.8; wrench.material.opacity = 1 - dim;
     // houses: scheduled feeder A goes dark in turn when kinds shows; dim dims all but the paying house
     houses.forEach(h => {
       let on = 1;
