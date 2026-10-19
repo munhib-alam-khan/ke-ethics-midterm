@@ -22,7 +22,7 @@ for (const id of want) {
   if (idx < 0) { console.log('skip', id); continue; }
   await page.evaluate(i => window.__deck.go(i, { instant: true }), idx);
   await page.waitForTimeout(+wait);
-  await page.screenshot({ path: path.join(out, `s${id.replace('.', '_')}.jpg`), type: 'jpeg', quality: 82 });
+  await page.screenshot({ path: path.join(out, `s${id.replace('.', '_')}.jpg`), type: 'jpeg', quality: 90, timeout: 240000 });
   process.stdout.write(id + ' ');
 }
 console.log('\nerrors:', errs.length ? errs.slice(0, 10) : 'none');

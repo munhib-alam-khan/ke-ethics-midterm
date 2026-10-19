@@ -117,14 +117,18 @@ async function boot() {
   function frame() {
     const dt = Math.min(0.05, clock.getDelta());
     render(dt);
-    // after warm-up, if frames are slow, lower the pixel ratio once or twice
-    if (t > 2 && checked < 3 && !q.has('q')) {
+    // after warm-up, if frames are genuinely slow, shed cost while keeping the picture sharp:
+    // step 1 drops shadows and multisampling, step 2 trims resolution slightly (never below 85%)
+    if (t > 4 && checked < 2 && !q.has('q') && !q.has('sharp')) {
       acc.push(dt);
-      if (acc.length >= 90) {
-        const avg = acc.reduce((a, b) => a + b, 0) / acc.length;
+      if (acc.length >= 120) {
+        const med = acc.slice().sort((a, b) => a - b)[acc.length >> 1];
         acc = [];
-        if (avg > 1 / 38) { prCap = Math.max(0.5, (R.size[2] || 1) * 0.75); R.bloom.strength *= 0.85; fit(); checked++; }
-        else checked = 3;
+        if (med > 1 / 28) {
+          if (checked === 0) { R.renderer.shadowMap.enabled = false; R.setSamples(0); }
+          else { prCap = Math.max(0.85, Math.min(prCap, devicePixelRatio || 1) * 0.85); fit(); }
+          checked++;
+        } else checked = 2;
       }
     }
     requestAnimationFrame(frame);

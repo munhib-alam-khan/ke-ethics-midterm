@@ -10,7 +10,7 @@ import { reg } from './kit.js';
 const FinalShader = {
   uniforms: {
     tDiffuse: { value: null }, uTime: { value: 0 }, uFade: { value: 0 }, uFadeCol: { value: new THREE.Color(0, 0, 0) },
-    uVig: { value: 0.9 }, uGrain: { value: 0.05 }, uTilt: { value: 0 }, uTiltY: { value: 0.5 }, uRes: { value: new THREE.Vector2(1920, 1080) },
+    uVig: { value: 0.9 }, uGrain: { value: 0.032 }, uTilt: { value: 0 }, uTiltY: { value: 0.5 }, uRes: { value: new THREE.Vector2(1920, 1080) },
     uWarm: { value: 0 }, uSat: { value: 1 }, uWhip: { value: 0 }, uWhipDir: { value: new THREE.Vector2(1, 0) }, uLift: { value: 0 }
   },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
@@ -58,7 +58,9 @@ export function createRenderer(canvas, quality) {
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x0c1020, 0.012);
   const camera = new THREE.PerspectiveCamera(50, 16 / 9, 0.03, 1500);
-  const composer = new EffectComposer(renderer);
+  // multisampled target: renderer antialiasing does not apply once post-processing is on
+  const target = new THREE.WebGLRenderTarget(1920, 1080, { type: THREE.HalfFloatType, samples: quality > 0 ? 4 : 0 });
+  const composer = new EffectComposer(renderer, target);
   composer.addPass(new RenderPass(scene, camera));
   const bloom = new UnrealBloomPass(new THREE.Vector2(960, 540), 0.75, 0.55, 0.82);
   composer.addPass(bloom);
@@ -88,7 +90,8 @@ export function createRenderer(canvas, quality) {
     camera.aspect = w / h; camera.updateProjectionMatrix();
     U.uRes.value.set(w * pr, h * pr);
   }
-  return { renderer, scene, camera, composer, bloom, final, resize, U, get size() { return [W, H, pr]; } };
+  function setSamples(n) { [composer.renderTarget1, composer.renderTarget2].forEach(t => { if (t.samples !== n) { t.samples = n; t.dispose(); } }); }
+  return { renderer, scene, camera, composer, bloom, final, resize, setSamples, U, get size() { return [W, H, pr]; } };
 }
 
 // camera rig: position + look target + fov + roll, all tweenable params
