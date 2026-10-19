@@ -35,7 +35,7 @@ export function createShell({ deck, scenes, low, setLow }) {
   function buildOverview() {
     const grid = $('#overview .grid');
     if (!grid.dataset.built) {
-      grid.innerHTML = scenes.map((sc, i) => `<button type="button" data-si="${i}" style="background-image:url('assets/thumbs/${sc.id}.jpg')"><span><b>${String(i + 1).padStart(2, '0')}</b>${esc(sc.title)}</span></button>`).join('');
+      grid.innerHTML = scenes.map((sc, i) => `<button type="button" data-si="${i}" style="background-image:url('${(window.THUMBS && window.THUMBS[sc.id]) || `assets/thumbs/${sc.id}.jpg`}')"><span><b>${String(i + 1).padStart(2, '0')}</b>${esc(sc.title)}</span></button>`).join('');
       grid.dataset.built = '1';
       grid.addEventListener('click', e => { const b = e.target.closest('button'); if (b) jumpToScene(+b.dataset.si); });
     }
